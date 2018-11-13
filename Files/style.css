@@ -1,0 +1,113 @@
+@font-face {
+    font-family: Neirizi;
+    src: url('./Fonts/Neirizi.ttf')
+}
+@font-face {
+    font-family: ‌Badr;
+    src: url('./Fonts/BADR.TTF')
+}
+@font-face {
+    font-family: Mitra;
+    src: url('./Fonts/BMITRA.TTF')
+}
+@font-face {
+    font-family: Nazanin;
+    src: url('./Fonts/BNAZANIN.TTF')
+}
+@font-face {
+    font-family: Zar;
+    src: url('./Fonts/BZAR.TTF')
+}
+
+.main-table{
+    width: 100%;
+    border-spacing: 0px;
+    padding: 0px;
+    border: 0px;
+    padding-block-end: 0px;
+}
+
+body{
+    
+    display: block;margin-left: 0.5vw;margin-right: 0.5vw; margin-top: 0px;
+}
+
+.main-panel{
+    float: right;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border: 1.5px solid #c0cc00;
+    width: 17vw;
+}
+
+.setting_panel{
+    float: right;
+    flex-direction: column;
+    overflow-y: auto;
+    border: 1.5px solid #c0cc00;
+    border-right: 0px;
+    width: 17vw;
+    background-color: #ffffffba;
+}
+
+.panel-section{
+    overflow-y: auto;
+    overflow-x: hidden;
+    float: right;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 17vw;
+    padding-top: 0px;
+    position: fixed;
+    right: 0.5vw;
+    
+}
+
+.quran-section{
+    width: 80vw;
+    height: 100px;
+    padding-top: 0.5vw;
+}
+
+#ayeh{
+    font-family: Neirizi;
+    font-size: 28px;
+}
+
+.quran-page{
+    display: flex;
+    flex-direction: column;
+}
+
+.ayah{
+    margin: 10px 10px 20px 10px;
+    text-align: right;
+    font-family: Neirizi;
+    font-size: 32px;
+    text-align: justify;
+}
+
+.ayah2 {
+    cursor: pointer;
+}
+
+.sura-start{
+    height:49px; width:100%;background-image: url('Images/sura-header.png');background-repeat: no-repeat;background-position: center;text-align: center;font-family: Badr;font-size: 28px;
+}
+
+.trans-start{
+    height:49px; width:100%;background-image: url('Images/trans-header.png');background-repeat: no-repeat;background-position: center;text-align: center;font-family: Badr;font-size: 28px;
+}
+
+select{
+    font-family: Nazanin;
+    font-size: 17px;
+    color: #000000;
+}
+
+button{
+    cursor: pointer;
+    color: #000000;
+}

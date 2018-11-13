@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>قرآن صوتی تنبیه</title>
+    <link rel="icon" href="Files/Images/Quran-icon.png" type="image/gif">
+    <link rel="stylesheet" type="text/css" href="Files/style.css">
+</head>
+
+<body ononline="net_status = true;" onoffline="net_status = false;">
+    <section id='p-sec' class="panel-section">
+        <div id="setting" class="setting_panel" style="display:none;">
+            <div style="display:grid; grid-template-columns: repeat(1, 1fr); padding: 7px; padding-top: 4px;">
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px;">اندازه متن : </span>
+                <div style="display:block; padding-top: 10px;">
+                    <input type="range" min="18" max="58" value="32" id="quran-size" style="height:10px;">
+                    <span dir="rtl" id="qfont-out" style="text-align: center; font-family: Arial; font-size: 17px;">32</span>
+                </div>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; padding-top: 10px;">اندازه
+                    ترجمه : </span>
+                <div style="display:block; padding-top: 10px;">
+                    <input type="range" min="14" max="40" value="20" id="trans-size" style="height:10px;">
+                    <span dir="rtl" id="tfont-out" style="text-align: center; font-family: Arial; font-size: 17px;">20</span>
+                </div>
+            </div>
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+            <div style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 7px; padding-top: 4px;">
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">فونت
+                    قرآن :
+                </span>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">فونت
+                    ترجمه :
+                </span>
+                <select id="quran-font" style="height:32px; margin-right: 2px;">
+                    <option value="Neirizi">نیریزی</option>
+                    <option value="Badr">بدر</option>
+                </select>
+                <select id="trans-font" style="height:32px; margin-right: 2px;" onchange="repeat = document.getElementById('repeat').valueOf().value;">
+                    <option value="Nazanin">نازنین</option>
+                    <option value="Mitra">میترا</option>
+                    <option value="Zar">زر</option>
+                </select>
+            </div>
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+            <div style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 7px; padding-top: 4px;">
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">رنگ
+                    قرآن :
+                </span>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">رنگ
+                    ترجمه :
+                </span>
+                <input type="color" id="quran-color" value="#000000">
+                <input type="color" id="trans-color" value="#00007b">
+            </div>
+            <div style="display:grid; grid-template-columns: repeat(1, 1fr); padding: 7px; padding-top: 4px;">
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">رنگ
+                    آیه انتخاب شده :
+                </span>
+                <input type="color" id="select-color" value="#A70021">
+            </div>
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+            <span style="font-size: 17px;font-family: Nazanin; text-align: right;">جابجایی خودکار<input id="auto-scroll"
+                    type="checkbox" checked></span>
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+            <button onclick="ResetDesign()" style="margin: 7px; height:auto;"><a style="font-weight: bold;font-size: 17px;font-family: Zar;">تنظیمات
+                    پیش فرض</a></button>
+        </div>
+        <div class="main-panel">
+            <audio id="aud" preload="metadata" onended="ContAyah()" style="width: 100%;" controls>
+                <source id="snd-src" src="" type="audio/mp3">
+                Your browser does not support HTML5 audio.
+            </audio>
+            <div style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 7px; padding-top: 4px;">
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px;">سوره : </span>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px;">آیه : </span>
+                <select id="sura-num" onchange="ChangeSelectionSura()" style="height:32px; margin-right: 2px;">
+                    <option value="001">1. الفاتحة</option>
+                    <option value="002">2. البقرة</option>
+                    <option value="003">3. آل عمران</option>
+                    <option value="004">4. النساء</option>
+                    <option value="005">5. المائدة</option>
+                    <option value="006">6. الأنعام</option>
+                    <option value="007">7. الأعراف</option>
+                    <option value="008">8. الأنفال</option>
+                    <option value="009">9. التوبة</option>
+                    <option value="010">10. يونس</option>
+                    <option value="011">11. هود</option>
+                    <option value="012">12. يوسف</option>
+                    <option value="013">13. الرعد</option>
+                    <option value="014">14. ابراهيم</option>
+                    <option value="015">15. الحجر</option>
+                    <option value="016">16. النحل</option>
+                    <option value="017">17. الإسراء</option>
+                    <option value="018">18. الكهف</option>
+                    <option value="019">19. مريم</option>
+                    <option value="020">20. طه</option>
+                    <option value="021">21. الأنبياء</option>
+                    <option value="022">22. الحج</option>
+                    <option value="023">23. المؤمنون</option>
+                    <option value="024">24. النور</option>
+                    <option value="025">25. الفرقان</option>
+                    <option value="026">26. الشعراء</option>
+                    <option value="027">27. النمل</option>
+                    <option value="028">28. القصص</option>
+                    <option value="029">29. العنكبوت</option>
+                    <option value="030">30. الروم</option>
+                    <option value="031">31. لقمان</option>
+                    <option value="032">32. السجدة</option>
+                    <option value="033">33. الأحزاب</option>
+                    <option value="034">34. سبإ</option>
+                    <option value="035">35. فاطر</option>
+                    <option value="036">36. يس</option>
+                    <option value="037">37. الصافات</option>
+                    <option value="038">38. ص</option>
+                    <option value="039">39. الزمر</option>
+                    <option value="040">40. غافر</option>
+                    <option value="041">41. فصلت</option>
+                    <option value="042">42. الشورى</option>
+                    <option value="043">43. الزخرف</option>
+                    <option value="044">44. الدخان</option>
+                    <option value="045">45. الجاثية</option>
+                    <option value="046">46. الأحقاف</option>
+                    <option value="047">47. محمد</option>
+                    <option value="048">48. الفتح</option>
+                    <option value="049">49. الحجرات</option>
+                    <option value="050">50. ق</option>
+                    <option value="051">51. الذاريات</option>
+                    <option value="052">52. الطور</option>
+                    <option value="053">53. النجم</option>
+                    <option value="054">54. القمر</option>
+                    <option value="055">55. الرحمن</option>
+                    <option value="056">56. الواقعة</option>
+                    <option value="057">57. الحديد</option>
+                    <option value="058">58. المجادلة</option>
+                    <option value="059">59. الحشر</option>
+                    <option value="060">60. الممتحنة</option>
+                    <option value="061">61. الصف</option>
+                    <option value="062">62. الجمعة</option>
+                    <option value="063">63. المنافقون</option>
+                    <option value="064">64. التغابن</option>
+                    <option value="065">65. الطلاق</option>
+                    <option value="066">66. التحريم</option>
+                    <option value="067">67. الملك</option>
+                    <option value="068">68. القلم</option>
+                    <option value="069">69. الحاقة</option>
+                    <option value="070">70. المعارج</option>
+                    <option value="071">71. نوح</option>
+                    <option value="072">72. الجن</option>
+                    <option value="073">73. المزمل</option>
+                    <option value="074">74. المدثر</option>
+                    <option value="075">75. القيامة</option>
+                    <option value="076">76. الانسان</option>
+                    <option value="077">77. المرسلات</option>
+                    <option value="078">78. النبإ</option>
+                    <option value="079">79. النازعات</option>
+                    <option value="080">80. عبس</option>
+                    <option value="081">81. التكوير</option>
+                    <option value="082">82. الإنفطار</option>
+                    <option value="083">83. المطففين</option>
+                    <option value="084">84. الإنشقاق</option>
+                    <option value="085">85. البروج</option>
+                    <option value="086">86. الطارق</option>
+                    <option value="087">87. الأعلى</option>
+                    <option value="088">88. الغاشية</option>
+                    <option value="089">89. الفجر</option>
+                    <option value="090">90. البلد</option>
+                    <option value="091">91. الشمس</option>
+                    <option value="092">92. الليل</option>
+                    <option value="093">93. الضحى</option>
+                    <option value="094">94. الشرح</option>
+                    <option value="095">95. التين</option>
+                    <option value="096">96. العلق</option>
+                    <option value="097">97. القدر</option>
+                    <option value="098">98. البينة</option>
+                    <option value="099">99. الزلزلة</option>
+                    <option value="100">100. العاديات</option>
+                    <option value="101">101. القارعة</option>
+                    <option value="102">102. التكاثر</option>
+                    <option value="103">103. العصر</option>
+                    <option value="104">104. الهمزة</option>
+                    <option value="105">105. الفيل</option>
+                    <option value="106">106. قريش</option>
+                    <option value="107">107. الماعون</option>
+                    <option value="108">108. الكوثر</option>
+                    <option value="109">109. الكافرون</option>
+                    <option value="110">110. النصر</option>
+                    <option value="111">111. المسد</option>
+                    <option value="112">112. الإخلاص</option>
+                    <option value="113">113. الفلق</option>
+                    <option value="114">114. الناس</option>
+                </select>
+
+                <select id="ayah-num" style="height:32px; margin-right: 2px;">
+                    <option value="001">1</option>
+                    <option value="002">2</option>
+                    <option value="003">3</option>
+                    <option value="004">4</option>
+                    <option value="005">5</option>
+                    <option value="006">6</option>
+                    <option value="007">7</option>
+                </select>
+
+                <button onclick="current_page=0; ReadAyah()" style="margin-top: 5px; height:40px; margin-right: 2px;"><a
+                        style="font-weight: bold;font-size: 17px;font-family: Zar;">پخش</a></button>
+                <button onclick="current_page=0; ShowAyah()" style="margin-top: 5px; height:40px; margin-right: 2px;"><a
+                        style="font-weight: bold;font-size: 17px;font-family: Zar;">نمایش</a></button>
+            </div>
+
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+
+            <div style="display:grid; grid-template-columns: repeat(1, 1fr); padding: 7px; padding-top: 0px;">
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px;">قاري : </span>
+                <select id="qari-select" style="height:32px; margin-right: 2px;" onchange="var current_qari_num = document.getElementById('qari-select').valueOf().value;var current_qari = QariArray[current_qari_num].EN_Name;">
+                </select>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">ترجمه
+                    :
+                </span>
+                <select id="trans-select" style="height:32px; margin-right: 2px;" onchange="current_trans_num = document.getElementById('trans-select').valueOf().value;current_page=0;ShowAyah();">
+                </select>
+            </div>
+
+            <a href="https://tanbih.ml" target="_blank" style="text-align:center; color: #0000ff; font-family: Nazanin; font-size: 16px; text-decoration: underline; cursor: pointer;">بیشتر</a>
+
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+
+            <div style="display:grid; grid-template-columns: repeat(2, 1fr); padding: 7px; padding-top: 0px;">
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">محدوده
+                    :
+                </span>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">تکرار
+                    :
+                </span>
+                <select id="range" style="height:32px; margin-right: 2px;">
+                    <option value="unlimit">پیوسته</option>
+                    <option value="ayah">آیه</option>
+                    <option value="page">صفحه</option>
+                    <option value="sura">سوره</option>
+                    <option value="hizb">حزب</option>
+                    <option value="joz">جزء</option>
+                </select>
+                <select id="repeat" style="height:32px; margin-right: 2px;" onchange="repeat = document.getElementById('repeat').valueOf().value;">
+                    <option value="0">بدون تکرار</option>
+                    <option value="1">x1</option>
+                    <option value="2">x2</option>
+                    <option value="3">x3</option>
+                    <option value="4">x4</option>
+                    <option value="5">x5</option>
+                    <option value="7">x7</option>
+                    <option value="10">x10</option>
+                </select>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">مکث
+                    :
+                </span>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">نمايش
+                    :
+                </span>
+                <select id="pause" style="height:32px; margin-right: 2px;">
+                    <option value="0">بدون مکث</option>
+                    <option value="x">به مقدار قرائت</option>
+                    <option value="1">1s</option>
+                    <option value="2">2s</option>
+                    <option value="3">3s</option>
+                    <option value="5">5s</option>
+                    <option value="7">7s</option>
+                    <option value="10">10s</option>
+                    <option value="15">10s</option>
+                    <option value="20">20s</option>
+                    <option value="25">25s</option>
+                    <option value="35">35s</option>
+                    <option value="50">50s</option>
+                    <option value="60">1m</option>
+                    <option value="120">2m</option>
+                    <option value="180">3m</option>
+                    <option value="300">5m</option>
+                    <option value="600">10m</option>
+                </select>
+                <select id="show" style="height:32px; margin-right: 2px;" onchange="current_page=0;ShowAyah(1);">
+                    <option value="sep">منفصل</option>
+                    <option value="cons-v">متوالی-ستونی</option>
+                    <option value="cons-h">متوالی-سطری</option>
+                </select>
+            </div>
+
+            <button id="set-but" onclick="ShowSettingMenu()" style="border:0px solid #00000000; background-color:#00000000; text-align:center; color: #0000ff; font-family: Nazanin; font-size: 16px; text-decoration: underline; cursor: pointer;">««تنظیمات</button>
+
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+
+            <div style="display:grid; grid-template-columns: repeat(4, 1fr); padding: 7px; padding-top: 0px;">
+                <select id="hizb" style="height:32px; margin-right: 2px;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">حزب
+                    :
+                </span>
+                <select id="joz" style="height:32px; margin-right: 2px;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                </select>
+                <span dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px; margin-top: 5px;">جزء
+                    :
+                </span>
+            </div>
+            <button onclick="GetHizb();" style="margin: 7px; margin-top: 0px; margin-bottom: 0px; height:auto; min-height: 24px;"><a
+                    style="font-weight: bold;font-size: 17px;font-family: Zar;">برو</a></button>
+
+            <hr style="background-color:#c0cc00;width: 100%;height: 1.5px; border: none;">
+
+            <div>
+                <div style="display:grid; grid-template-columns: repeat(1, 1fr); padding: 7px; padding-top: 0px;">
+                    <span dir="rtl" style="text-align: right; font-family: Nazanin; font-size: 17px; margin-top: 5px;">عبارت
+                        جستجو (بدون اعراب) :
+                    </span>
+                    <div dir="rtl" style="text-align: center; font-family: Nazanin; font-size: 17px;">
+                        <input id="quran-s" type="radio" name="search-s" value="quran" checked><span>در قرآن</span>
+                        <input id="trans-s" type="radio" name="search-s" value="trans"><span>در ترجمه</span>
+                    </div>
+                    <input id="search-input" type="text" style="text-align: right; font-family: Nazanin; font-size: 17px; margin: 7px; height: 19px;">
+                    <button onclick="Search()" style="margin: 7px; margin-top: 0px; margin-bottom: 0px; height:auto; min-height: 24px;"><a
+                            style="font-weight: bold;font-size: 17px;font-family: Zar;">جستجو</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="main-sec" class="quran-section">
+        <table class="main-table" cellpadding="0" style="padding-left: 50px;padding-right: 50px;">
+            <tr>
+                <td style="width: 33.333%">
+                    <strong id="surah-name" style="font-family: Badr; font-size: 19px;">【سورة الفاتحة】</strong>
+                </td>
+                <td style="text-align: center; width: 33.333%">
+                    <button style="border:0px solid #00000000; background-color:#00000000;" onclick="NextPage();"><strong
+                            style="font-size : 24px; cursor: pointer;">«</strong></button>
+                    <button style="border:0px solid #00000000; background-color:#00000000; font-size: 16px;" onclick="GoToPage();"><strong
+                            id="page-number">1</strong></button>
+                    <button style="border:0px solid #00000000; background-color:#00000000;" onclick="PervPage();"><strong
+                            style="font-size : 24px; cursor: pointer;">»</strong></button>
+                </td>
+                <td style="width: 33.333%; text-align: right;">
+                    <strong id="joz-name" style="font-family: Badr; font-size: 19px;">【الجزء الاول】</strong>
+                </td>
+            </tr>
+        </table>
+        <table class="main-table" cellpadding="0">
+            <tr>
+                <td style="width : 59px; height: 59px; background-image: url('Files/Images/left_up.gif');"></td>
+                <td style="height: 59px; background-image: url('Files/Images/tile_up.gif');"></td>
+                <td style="width : 59px; height: 59px; background-image: url('Files/Images/right_up.gif');"></td>
+            </tr>
+            <tr>
+                <td style="width : 59px; background-image: url('Files/Images/tile_left.gif');"></td>
+                <td>
+                    <div id="quran-page" class="quran-page">
+                    </div>
+                </td>
+                <td style="width : 59px; background-image: url('Files/Images/tile_right.gif');"></td>
+            </tr>
+            <tr>
+                <td style="width : 59px; height: 59px; background-image: url('Files/Images/left_down.gif');"></td>
+                <td style="height: 59px; background-image: url('Files/Images/tile_down.gif');"></td>
+                <td style="width : 59px; height: 59px; background-image: url('Files/Images/right_down.gif');"></td>
+            </tr>
+        </table>
+
+        <table class="main-table" cellpadding="0" style="padding-left: 50px;padding-right: 50px;">
+            <tr>
+                <td style="text-align: center; width: 33.333%">
+                    <button style="border:0px solid #00000000; background-color:#00000000;" onclick="NextPage(true);"><strong
+                            style="font-size : 24px; cursor: pointer;">«</strong></button>
+                    <button style="border:0px solid #00000000; background-color:#00000000; font-size: 16px;" onclick="GoToPage();"><strong
+                            id="page-number2">1</strong></button>
+                    <button style="border:0px solid #00000000; background-color:#00000000;" onclick="PervPage(true);"><strong
+                            style="font-size : 24px; cursor: pointer;">»</strong></button>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <script type="text/javascript" src="Files/Scripts/qari.js"></script>
+    <script type="text/javascript" src="Files/Scripts/translation.js"></script>
+    <script type="text/javascript" src="Sounds/0/script.js"></script>
+    <script type="text/javascript" src="Sounds/1/script.js"></script>
+    <script type="text/javascript" src="Sounds/2/script.js"></script>
+    <script type="text/javascript" src="Sounds/3/script.js"></script>
+    <script type="text/javascript" src="Sounds/4/script.js"></script>
+    <script type="text/javascript" src="Sounds/5/script.js"></script>
+    <script type="text/javascript" src="Sounds/6/script.js"></script>
+    <script type="text/javascript" src="Sounds/7/script.js"></script>
+    <script type="text/javascript" src="Sounds/8/script.js"></script>
+    <script type="text/javascript" src="Sounds/9/script.js"></script>
+    <script type="text/javascript" src="Sounds/10/script.js"></script>
+    <script type="text/javascript" src="Sounds/11/script.js"></script>
+    <script type="text/javascript" src="Sounds/12/script.js"></script>
+    <script type="text/javascript" src="Sounds/13/script.js"></script>
+    <script type="text/javascript" src="Sounds/14/script.js"></script>
+    <script type="text/javascript" src="Sounds/15/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/0/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/1/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/2/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/3/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/4/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/5/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/6/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/7/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/8/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/9/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/10/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/11/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/12/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/13/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/14/script.js"></script>
+    <script type="text/javascript" src="Files/Translations/15/script.js"></script>
+    <script type="text/javascript" src="Files/Scripts/online-qari.js"></script>
+    <script type="text/javascript" src="Files/Scripts/qsa.js"></script>
+    <script type="text/javascript" src="Files/Scripts/qta.js"></script>
+    <script type="text/javascript" src="Files/Scripts/QuranArray.js"></script>
+    <script type="text/javascript" src="Files/Scripts/script.js"></script>
+    <script type="text/javascript" src="https://tanbih.ml/Sounds/online.js"></script>
+
+</body>
+
+</html>

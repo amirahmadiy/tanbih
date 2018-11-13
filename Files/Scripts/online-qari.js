@@ -1,0 +1,1 @@
+QariArray[QariArray.length] = new Qari_Record('مشاری العفاسی','afasy','أنلاین',true);
